@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - Art Gallery</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-header h1 {
+  margin: 10px 0;
+}
+
+.collection {
+  margin-bottom: 20px;
+}
+
+.collection h3 {
+  margin-bottom: 5px;
+}
+
+/* Add more CSS styling as needed */
+
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <img src="user-profile-picture.jpg" alt="User Profile Picture" class="profile-picture">
+      <h1>User's Name</h1>
+      <p>User Bio or Description</p>
+      <!-- Add social media links here -->
+    </div>
+    <div class="profile-content">
+      <h2>Artwork Collections</h2>
+      <div class="collection">
+        <h3>Collection 1</h3>
+    </div>
+      <div class="collection">
+        <h3>Collection 2</h3>
+    
+      </div>
+    </div>
+  </div>
+  <script>
+    // Replace these variables with actual login status and user information
+let isLoggedIn = false;
+let userName = "John Doe";
+
+document.addEventListener("DOMContentLoaded", function () {
+  const loginIcon = document.getElementById("login-icon");
+  const userIcon = document.getElementById("user-icon");
+  
+  // Check if the user is logged in
+  if (isLoggedIn) {
+    // Hide the login icon
+    loginIcon.style.display = "none";
+    // Show the user icon
+    userIcon.style.display = "inline";
+    // Set the user's name as the title attribute of the user icon for a tooltip effect
+    userIcon.title = `Logged in as ${userName}`;
+  } else {
+    // Show the login icon
+    loginIcon.style.display = "inline";
+    // Hide the user icon
+    userIcon.style.display = "none";
+  }
+});
+
+  </script>
+</body>
+</html>

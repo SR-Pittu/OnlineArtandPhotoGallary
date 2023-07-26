@@ -3,23 +3,183 @@
 <head>
   <title>Register as a Creator</title>
   <link rel="stylesheet" type="text/css" href="registerstyle.css">
+  <style>
+    /* styles.css */
 
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container Styles */
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Form Styles */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Error Message Styles */
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  /* Success Message Styles */
+    
+  #success-message a {
+    color: green;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  </style>
   <script>
-    function validateForm() {
+  // function validatePassword() {
+  //   var password = document.getElementById("password").value;
+  //   var errorMessageElement = document.getElementById("error-message");
+  //   var successMessageElement = document.getElementById("success-message");
+  //   var isValid = true;
+  //   var errorMessage = "";
+  //   if(password == password-reenter){
+  //     if (password.length < 8) {
+  //       isValid = false;
+  //       document.getElementById("btn").disabled = true;
+  //       errorMessage += "Password must be at least 8 characters long. ";
+  //     }
+  //     if (!/[A-Z]/.test(password)) {
+  //       isValid = false;
+  //       document.getElementById("btn").disabled = true;
+  //       errorMessage += "Password must contain at least one uppercase letter. ";
+  //     }
+  //     if (!/[a-z]/.test(password)) {
+  //       isValid = false;
+  //       document.getElementById("btn").disabled = true;
+  //       errorMessage += "Password must contain at least one lowercase letter. ";
+  //     }
+  //     if (!/\d/.test(password)) {
+  //       isValid = false;
+  //       document.getElementById("btn").disabled = true;
+  //       errorMessage += "Password must contain at least one digit. ";
+  //     }
+  //     if (!/[!@#$%^&*()-_=+[\]{}|;:,.<>?\\/~`"']/.test(password)) {
+  //       isValid = false;
+  //       document.getElementById("btn").disabled = true;
+  //       errorMessage += "Password must contain at least one special character. ";
+  //     } 
+  //     if (isValid) {
+  //       document.getElementById("error-message").innerText = "";
+  //       document.getElementById("btn").disabled = false;
+  //       document.getElementById("success-message").innerText = "Password is valid!";
+  //     } else {
+  //       document.getElementById("error-message").innerText = errorMessage;
+  //       document.getElementById("success-message").innerText = "";
+  //     }
+  //   }
+  // }
+  function validateForm() {
       var email = document.getElementById("email").value;
       var password = document.getElementById("password").value;
       var passwordReenter = document.getElementById("password-reenter").value;
 
       if (password !== passwordReenter) {
-        document.getElementById("error-message").innerText = "Passwords do not match";
+        document.getElementById("errormessage").innerText = "Passwords do not match";
         return false;
       } else {
-        document.getElementById("error-message").innerText = ""; // Clear any previous error message
+        document.getElementById("errormessage").innerText = ""; // Clear any previous error message
         document.getElementById("registration-form").reset(); // Reset the form fields
         document.getElementById("success-message").style.display = "block"; // Show success message
         return false; // Prevent form submission
       }
     }
+    function validatePassword() {
+      var password = document.getElementById("password").value;
+      var errorMessageElement = document.getElementById("error-message");
+      var successMessageElement = document.getElementById("success-message");
+
+      var isValid = true;
+      var errorMessage = "";
+
+      if (password.length < 8) {
+        isValid = false;
+        errorMessage += "Password must be at least 8 characters long. ";
+      }
+
+      if (!/[A-Z]/.test(password)) {
+        isValid = false;
+        errorMessage += "Password must contain at least one uppercase letter. ";
+      }
+
+      if (!/[a-z]/.test(password)) {
+        isValid = false;
+        errorMessage += "Password must contain at least one lowercase letter. ";
+      }
+
+      if (!/\d/.test(password)) {
+        isValid = false;
+        errorMessage += "Password must contain at least one digit. ";
+      }
+
+      if (!/[!@#$%^&*()-_=+[\]{}|;:,.<>?\\/~`"']/.test(password)) {
+        isValid = false;
+        errorMessage += "Password must contain at least one special character. ";
+      }
+
+      if (isValid) {
+        errorMessageElement.innerText = "";
+        successMessageElement.innerText = "Password is valid!";
+      } else {
+        errorMessageElement.innerText = errorMessage;
+        successMessageElement.innerText = "";
+      }
+    }
+    function validateOnChange() {
+      var password = document.getElementById("password").value;
+      var errorMessageElement = document.getElementById("error-message");
+      var successMessageElement = document.getElementById("success-message");
+
+      
+      if (password.length === 0) {
+        errorMessageElement.innerText = ""; // Clear error message when the field is empty
+      } else {
+        validatePassword(); // Call the existing validation function
+      }
+    }
+
+    // Attach the validateOnChange function to password fields' "input" event
+    document.getElementById("password").addEventListener("input", validateOnChange);
+    document.getElementById("password-reenter").addEventListener("input", validateOnChange);
   </script>
 </head>
 <body>
@@ -34,16 +194,16 @@
       <label for="password-reenter"><b>Re-Enter Password</b></label><br>
       <input type="password" placeholder="Re-Enter Password" name="password-reenter" id="password-reenter" required><br><br>
 
-      <button type="submit" class="registerbtn">Register</button>
+      <button id = "btn" type="submit" class="registerbtn">Register</button>
       <br> 
 
       <div id="error-message" class="error-message"></div>
     </form>
 
     <!-- Success message (hidden by default) -->
-    <div id="success-message" style="display: none;">
+    <div id="success-message" style ="display: none;">
       <p>Registration successful!</p>
-      <a href="/login">Please proceed to the login page</a>
+      <a href="/logins">Please proceed to the login page</a>
       <!-- <p>Please proceed to the login page.</p> -->
     </div>
   </div>
