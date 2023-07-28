@@ -164,12 +164,11 @@ body {
         successMessageElement.innerText = "";
       }
     }
-    function validateOnChange() {
+      // Function to validate password on input change
+      function validateOnChange() {
       var password = document.getElementById("password").value;
       var errorMessageElement = document.getElementById("error-message");
-      var successMessageElement = document.getElementById("success-message");
 
-      
       if (password.length === 0) {
         errorMessageElement.innerText = ""; // Clear error message when the field is empty
       } else {
@@ -194,18 +193,18 @@ body {
       <label for="password-reenter"><b>Re-Enter Password</b></label><br>
       <input type="password" placeholder="Re-Enter Password" name="password-reenter" id="password-reenter" required><br><br>
 
-      <button id = "btn" type="submit" class="registerbtn">Register</button>
+      <button type="submit" class="registerbtn">Register</button>
       <br> 
 
+      <!-- Corrected the ID for the error message element -->
       <div id="error-message" class="error-message"></div>
-    </form>
 
-    <!-- Success message (hidden by default) -->
-    <div id="success-message" style ="display: none;">
-      <p>Registration successful!</p>
-      <a href="/logins">Please proceed to the login page</a>
-      <!-- <p>Please proceed to the login page.</p> -->
-    </div>
+      <!-- Success message (hidden by default) -->
+      <div id="success-message" style="display: none;">
+        <p>Registration successful!</p>
+        <a href="/logins">Please proceed to the login page</a>
+      </div>
+    </form>
   </div>
 </body>
 </html>

@@ -1,22 +1,29 @@
 import pymongo
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, url_for
+
+
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient['MyArtGalleryDB'] 
 print(myclient.list_database_names())
 mycol = mydb['ArtCollection'] 
 print(mydb.list_collection_names())
-mycol.delete_many({})
-mydict = { "email": "psreddy102@gmail.com", "password": "123456" }
 mycol.create_index("email", unique=True)
-x = mycol.insert_one(mydict)
-print(x.inserted_id)
+# x = mycol.insert_one(mydict)
+# print(x.inserted_id)
 
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
+
+app.secret_key = '1809'
+
+# Function to check if the user is logged in (you can modify this based on your authentication logic)
+def is_user_logged_in():
+    return 'logged_in' in session
+
 
 
 def login_required(f):
@@ -30,6 +37,10 @@ def login_required(f):
 
 @app.route('/')
 def home():
+    if is_user_logged_in():
+        return render_template('homeloggedin.html')
+    else:
+        return render_template('home.html')
     return render_template('home.html')
 
 MIN_PASSWORD_LENGTH = 8
@@ -70,10 +81,9 @@ def register():
                 # Insert the document into the collection
                 mycol.insert_one({'email': username, 'password': password})
                 print("Document inserted successfully!")
-                return redirect('/login')
             except DuplicateKeyError as e:
                 print("Error: The 'email' field must be unique.")
-                return redirect('/register')
+                # return redirect('/register')
             # mycol.insert_one({'email': username, 'password': password})
     return render_template('register.html')
 
@@ -82,20 +92,32 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['email']
         password = request.form['password']
-
-        # Query the MongoDB collection for the username and password
-        
-        if user:
+        print(username)
+        user = mycol.find_one({'email': username})
+        print(user['email'])
+        print(password)
+        print(user['password'])
+        if user['email']==username and user['password'] == password:
             # Successful login
-            return redirect('home')
+            print("valid username and password")
+            return redirect(url_for('homeloggedin'))
         else:
             # Invalid credentials
             return render_template('login.html', error='Invalid username or password')
 
     return render_template('login.html')
 
+@app.route('/home',methods=['GET', 'POST'])
+def homeloggedin():
+     return render_template('homeloggedin.html')
+
+@app.route('/logout')
+def logout():
+    # Clear the session and log the user out
+    session.clear()
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.debug =  True
