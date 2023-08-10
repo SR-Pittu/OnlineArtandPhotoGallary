@@ -1,7 +1,8 @@
 import pymongo
+from cryptography.fernet import Fernet
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 
 
 
@@ -68,6 +69,19 @@ def register():
         username = request.form['email']
         password = request.form['password']
         password1 = request.form['password-reenter']
+        # generate a key for encryption and decryption
+        # You can use fernet to generate
+        # the key or use random key generator
+        # here I'm using fernet to generate key
+        key = Fernet.generate_key()
+        # Instance the Fernet class with the key
+        fernet = Fernet(key)
+        # then use the Fernet class instance
+        # to encrypt the string string must
+        # be encoded to byte string before encryption
+        encMessage = fernet.encrypt(password.encode())
+        print("original string: ", password)
+        print("encrypted string: ", encMessage)
         print(username)
         print(password)
         if password != password1:
@@ -81,9 +95,14 @@ def register():
                 # Insert the document into the collection
                 mycol.insert_one({'email': username, 'password': password})
                 print("Document inserted successfully!")
+                success_message="Registration successful! /n Please proceed to the login page"
+                flash(success_message)
+                # return redirect('/register',success_message=success_message)
             except DuplicateKeyError as e:
+                error_message="email already exists"
                 print("Error: The 'email' field must be unique.")
-                # return redirect('/register')
+
+                return redirect('/register',error_message=error_message)
             # mycol.insert_one({'email': username, 'password': password})
     return render_template('register.html')
 
@@ -118,6 +137,11 @@ def logout():
     # Clear the session and log the user out
     session.clear()
     return redirect(url_for('home'))
+
+@app.route('/profile',methods=['GET', 'POST'])
+def profile():
+    # Clear the session and log the user out
+    return redirect('profile.html')
 
 if __name__ == '__main__':
     app.debug =  True
