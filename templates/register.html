@@ -51,14 +51,14 @@ body {
   }
   
   /* Error Message Styles */
-  .error-message {
+  .error_message {
     color: red;
     margin-bottom: 10px;
   }
   
   /* Success Message Styles */
     
-  #success-message a {
+  #success_message a {
     color: green;
     text-decoration: none;
     font-weight: bold;
@@ -66,49 +66,7 @@ body {
   
   </style>
   <script>
-  // function validatePassword() {
-  //   var password = document.getElementById("password").value;
-  //   var errorMessageElement = document.getElementById("error-message");
-  //   var successMessageElement = document.getElementById("success-message");
-  //   var isValid = true;
-  //   var errorMessage = "";
-  //   if(password == password-reenter){
-  //     if (password.length < 8) {
-  //       isValid = false;
-  //       document.getElementById("btn").disabled = true;
-  //       errorMessage += "Password must be at least 8 characters long. ";
-  //     }
-  //     if (!/[A-Z]/.test(password)) {
-  //       isValid = false;
-  //       document.getElementById("btn").disabled = true;
-  //       errorMessage += "Password must contain at least one uppercase letter. ";
-  //     }
-  //     if (!/[a-z]/.test(password)) {
-  //       isValid = false;
-  //       document.getElementById("btn").disabled = true;
-  //       errorMessage += "Password must contain at least one lowercase letter. ";
-  //     }
-  //     if (!/\d/.test(password)) {
-  //       isValid = false;
-  //       document.getElementById("btn").disabled = true;
-  //       errorMessage += "Password must contain at least one digit. ";
-  //     }
-  //     if (!/[!@#$%^&*()-_=+[\]{}|;:,.<>?\\/~`"']/.test(password)) {
-  //       isValid = false;
-  //       document.getElementById("btn").disabled = true;
-  //       errorMessage += "Password must contain at least one special character. ";
-  //     } 
-  //     if (isValid) {
-  //       document.getElementById("error-message").innerText = "";
-  //       document.getElementById("btn").disabled = false;
-  //       document.getElementById("success-message").innerText = "Password is valid!";
-  //     } else {
-  //       document.getElementById("error-message").innerText = errorMessage;
-  //       document.getElementById("success-message").innerText = "";
-  //     }
-  //   }
-  // }
-  function validateForm() {
+   function validateForm() {
       var email = document.getElementById("email").value;
       var password = document.getElementById("password").value;
       var passwordReenter = document.getElementById("password-reenter").value;
@@ -119,14 +77,14 @@ body {
       } else {
         document.getElementById("errormessage").innerText = ""; // Clear any previous error message
         document.getElementById("registration-form").reset(); // Reset the form fields
-        document.getElementById("success-message").style.display = "block"; // Show success message
+        document.getElementById("success_message").style.display = "block"; // Show success message
         return false; // Prevent form submission
       }
     }
     function validatePassword() {
       var password = document.getElementById("password").value;
-      var errorMessageElement = document.getElementById("error-message");
-      var successMessageElement = document.getElementById("success-message");
+      var errorMessageElement = document.getElementById("error_message");
+      var successMessageElement = document.getElementById("success_message");
 
       var isValid = true;
       var errorMessage = "";
@@ -167,7 +125,7 @@ body {
       // Function to validate password on input change
       function validateOnChange() {
       var password = document.getElementById("password").value;
-      var errorMessageElement = document.getElementById("error-message");
+      var errorMessageElement = document.getElementById("error_message");
 
       if (password.length === 0) {
         errorMessageElement.innerText = ""; // Clear error message when the field is empty
@@ -197,11 +155,11 @@ body {
       <br> 
 
       <!-- Corrected the ID for the error message element -->
-      <div id="error-message" class="error-message"></div>
+      <div id="error_message" class="error_message">{{ error_message }}</div>
 
       <!-- Success message (hidden by default) -->
-      <div id="success-message" style="display: none;">
-        <p>Registration successful!</p>
+      <div id="success_message">
+        <p>{{ success_message }}</p>
         <a href="/logins">Please proceed to the login page</a>
       </div>
     </form>
