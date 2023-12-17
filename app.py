@@ -1,3 +1,4 @@
+from functools import wraps
 import pymongo
 from cryptography.fernet import Fernet
 from pymongo import MongoClient
@@ -69,16 +70,9 @@ def register():
         username = request.form['email']
         password = request.form['password']
         password1 = request.form['password-reenter']
-        # generate a key for encryption and decryption
-        # You can use fernet to generate
-        # the key or use random key generator
-        # here I'm using fernet to generate key
         key = Fernet.generate_key()
         # Instance the Fernet class with the key
         fernet = Fernet(key)
-        # then use the Fernet class instance
-        # to encrypt the string string must
-        # be encoded to byte string before encryption
         encMessage = fernet.encrypt(password.encode())
         print("original string: ", password)
         print("encrypted string: ", encMessage)
