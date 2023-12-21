@@ -2,146 +2,11 @@
 <html>
 <head>
   <title>Register as a Creator</title>
-  <link rel="stylesheet" type="text/css" href="registerstyle.css">
-  <style>
-    /* styles.css */
-
-/* Global Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Container Styles */
-  .container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Form Styles */
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Error Message Styles */
-  .error_message {
-    color: red;
-    margin-bottom: 10px;
-  }
-  
-  /* Success Message Styles */
-    
-  #success_message a {
-    color: green;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  </style>
-  <script>
-   function validateForm() {
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("password").value;
-      var passwordReenter = document.getElementById("password-reenter").value;
-
-      if (password !== passwordReenter) {
-        document.getElementById("errormessage").innerText = "Passwords do not match";
-        return false;
-      } else {
-        document.getElementById("errormessage").innerText = ""; // Clear any previous error message
-        document.getElementById("registration-form").reset(); // Reset the form fields
-        document.getElementById("success_message").style.display = "block"; // Show success message
-        return false; // Prevent form submission
-      }
-    }
-    function validatePassword() {
-      var password = document.getElementById("password").value;
-      var errorMessageElement = document.getElementById("error_message");
-      var successMessageElement = document.getElementById("success_message");
-
-      var isValid = true;
-      var errorMessage = "";
-
-      if (password.length < 8) {
-        isValid = false;
-        errorMessage += "Password must be at least 8 characters long. ";
-      }
-
-      if (!/[A-Z]/.test(password)) {
-        isValid = false;
-        errorMessage += "Password must contain at least one uppercase letter. ";
-      }
-
-      if (!/[a-z]/.test(password)) {
-        isValid = false;
-        errorMessage += "Password must contain at least one lowercase letter. ";
-      }
-
-      if (!/\d/.test(password)) {
-        isValid = false;
-        errorMessage += "Password must contain at least one digit. ";
-      }
-
-      if (!/[!@#$%^&*()-_=+[\]{}|;:,.<>?\\/~`"']/.test(password)) {
-        isValid = false;
-        errorMessage += "Password must contain at least one special character. ";
-      }
-
-      if (isValid) {
-        errorMessageElement.innerText = "";
-        successMessageElement.innerText = "Password is valid!";
-      } else {
-        errorMessageElement.innerText = errorMessage;
-        successMessageElement.innerText = "";
-      }
-    }
-      // Function to validate password on input change
-      function validateOnChange() {
-      var password = document.getElementById("password").value;
-      var errorMessageElement = document.getElementById("error_message");
-
-      if (password.length === 0) {
-        errorMessageElement.innerText = ""; // Clear error message when the field is empty
-      } else {
-        validatePassword(); // Call the existing validation function
-      }
-    }
-
-    // Attach the validateOnChange function to password fields' "input" event
-    document.getElementById("password").addEventListener("input", validateOnChange);
-    document.getElementById("password-reenter").addEventListener("input", validateOnChange);
-  </script>
+  <link rel="stylesheet"href="/static/registerstyle.css"> 
 </head>
 <body>
   <div class="container">
-    <form id="registration-form" method="post" onsubmit="return validateForm()">
+    <form id="registration-form" method="post" >
       <label for="email"><b>Email</b></label><br>
       <input type="text" placeholder="Enter Email" name="email" id="email" required><br><br>
 
@@ -153,16 +18,18 @@ body {
 
       <button type="submit" class="registerbtn">Register</button>
       <br> 
-
+    </form>
       <!-- Corrected the ID for the error message element -->
-      <div id="error_message" class="error_message">{{ error_message }}</div>
+      <div id="error_message">{{ error_message }}</div>
 
       <!-- Success message (hidden by default) -->
       <div id="success_message">
-        <p>{{ success_message }}</p>
-        <a href="/logins">Please proceed to the login page</a>
+        <a href="/login">{{ success_message }}</a>
       </div>
-    </form>
+
   </div>
 </body>
+  <footer>
+    <p>&copy; 2023 Art & Photo Gallery. All rights reserved.</p>
+  </footer>
 </html>
