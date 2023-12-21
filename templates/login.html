@@ -2,80 +2,36 @@
 <html>
 <head>
   <title>Login</title>
-  <style>
-    /* styles.css */
-
-/* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-/* Container Styles */
-.container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-/* Form Styles */
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button.login-btn {
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Error Message Styles */
-.error-message {
-  color: red;
-  margin-bottom: 10px;
-}
-
-  </style>
+  <link rel="stylesheet" href="/static/login.css">
 </head>
 <body>
   <div class="container">
-    <form id="login-form" method="post" onsubmit="return validateForm()">
+    <form id="login-form" method="post">
       <h2>Login</h2>
       <label for="email"><b>Email</b></label>
       <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" id="password" required>
+      <input type="password" placeholder="Enter Password" name="password" id="password" required><br><br>
+      <input type="checkbox" onclick="myFunction()">Show Password
 
       <button type="submit" class="login-btn">Login</button>
 
-      <div id="error-message" class="error-message"></div>
+      <div id="error-message" class="error-message">{{ error }}</div>
     </form>
   </div>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+    </script>
 </body>
+<footer>
+  <p>&copy; 2023 Art & Photo Gallery. All rights reserved.</p>
+</footer>
 </html>

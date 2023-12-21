@@ -1,30 +1,124 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
 }
 
 .profile-container {
-    max-width: 800px;
-    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.profile-header {
+    position: relative;
+    text-align: justify;
     padding: 20px;
+    border-bottom: 1px solid #eee;
 }
 
 .profile-picture {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.profile-header h1 {
-    margin: 10px 0;
+#user-name {
+    margin: 10px 0 5px;
+    font-size: 24px;
+    color: #333;
+}
+
+#user-bio {
+    margin: 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    color: #666;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: burlywood;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: lightseagreen;
+}
+
+.chat-popup {
+    display: none;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 200px;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    opacity: 0.8;
+}
+
+.btn.cancel {
+    background-color: orangered;
+}
+
+/* Add a style to hide the bio editor and artwork collections by default */
+.chat-popup,
+#artworkCollectionsArtist,
+#artworkCollectionsPhotographer {
+    display: none;
+}
+
+.profile-content {
+    padding: 20px;
 }
 
 .collection {
     margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.collection h3 {
-    margin-bottom: 5px;
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    bottom: 0;
+    width: 100%;
 }

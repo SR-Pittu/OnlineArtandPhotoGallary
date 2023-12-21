@@ -62,10 +62,10 @@ def is_valid_password(password):
         return False
     return True
 
-@app.route('/register', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     error_message = None  # Initialize the error message variable
-    sucess_message = None # Initialize the success message variable
+    success_message = None # Initialize the success message variable
     if request.method == 'POST':
         username = request.form['email']
         password = request.form['password']
@@ -81,29 +81,27 @@ def register():
         if password != password1:
             error_message = 'Passwords do not match.'
             print(error_message)
+            return render_template('register.html',error_message=error_message)
         elif not is_valid_password(password):
             error_message = PASSWORD_REQUIREMENTS
             print(error_message)
+            return render_template('register.html',error_message=error_message)
         else:
             try:
                 # Insert the document into the collection
                 mycol.insert_one({'email': username, 'password': password})
                 print("Document inserted successfully!")
                 success_message="Registration successful! /n Please proceed to the login page"
-                flash(success_message)
-                # return redirect('/register',success_message=success_message)
+                return render_template('register.html', success_message=success_message)
             except DuplicateKeyError as e:
                 error_message="email already exists"
                 print("Error: The 'email' field must be unique.")
-
-                return redirect('/register',error_message=error_message)
+                return render_template('register.html',error_message=error_message)
             # mycol.insert_one({'email': username, 'password': password})
     return render_template('register.html')
 
-
-
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def login(): 
     if request.method == 'POST':
         username = request.form['email']
         password = request.form['password']
@@ -135,7 +133,7 @@ def logout():
 @app.route('/profile',methods=['GET', 'POST'])
 def profile():
     # Clear the session and log the user out
-    return redirect('profile.html')
+    return render_template('profile.html')
 
 if __name__ == '__main__':
     app.debug =  True

@@ -1,55 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <!-- Your existing meta tags and stylesheets -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="profile.css">
+  <link rel="stylesheet" href="/static/profile.css">
+
   <title>User Profile - Art Gallery</title>
-  </head>
+</head>
+
 <body>
   <div class="profile-container">
     <div class="profile-header">
-      <img src="user-profile-picture.jpg" alt="User Profile Picture" class="profile-picture">
-      <h1>User's Name</h1>
-      <p>User Bio or Description</p>
-      <!-- Add social media links here -->
+      <img src="image_avatar.png" alt="User Profile Picture" class="profile-picture">
+      <h1 id="user-name">User's Name</h1>
+      <p id="user-bio">User Bio or Description</p>
+      <p>Edit Bio</p>
+      <button onclick="openBioEditor()">Edit Bio</button>
+      <!-- Chat-style popup for editing bio -->
+      <div class="chat-popup" id="bioEditor">
+        <form action="/update_bio" class="form-container">
+          <label for="bio"><b>New Bio:</b></label>
+          <textarea placeholder="Type new bio..." name="bio" required></textarea>
+          <button type="button" class="btn" onclick="updateBio()">Save</button>
+          <button type="button" class="btn cancel" onclick="closeBioEditor()">Cancel</button>
+        </form>
+      </div>
+      <div id="user-options">
+        <!-- Split button for switching roles -->
+        <div class="split-button" onclick="toggleRoleDropdown()">
+          Switch Role
+          <div class="dropdown-content" id="roleDropdown">
+            <button onclick="switchRole('Switch to Artist')">Switch to Artist</button>
+            <button onclick="switchRole('Switch to Photographer')">Switch to Photographer</button>
+          </div>
+        </div>
+        <!-- Display selected role below the button -->
+        <p id="selectedRoleLabel">Selected Role: None</p>
+      </div>
     </div>
-    <div class="profile-content">
-      <h2>Artwork Collections</h2>
+    <!-- Artwork Collections sections -->
+    <div class="profile-content" id="artworkCollectionsArtist">
+      <h2>Artwork Collections (Artist)</h2>
       <div class="collection">
         <h3>Collection 1</h3>
-    </div>
+      </div>
       <div class="collection">
         <h3>Collection 2</h3>
-    
+      </div>
+    </div>
+    <div class="profile-content" id="artworkCollectionsPhotographer">
+      <h2>Photo Collections (Photographer)</h2>
+      <div class="collection">
+        <h3>Collection 1</h3>
+      </div>
+      <div class="collection">
+        <h3>Collection 2</h3>
       </div>
     </div>
   </div>
   <script>
-    // Replace these variables with actual login status and user information
-let isLoggedIn = false;
-let userName = "John Doe";
+    function openBioEditor() {
+      document.getElementById("bioEditor").style.display = "block";
+    }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const loginIcon = document.getElementById("login-icon");
-  const userIcon = document.getElementById("user-icon");
-  
-  // Check if the user is logged in
-  if (isLoggedIn) {
-    // Hide the login icon
-    loginIcon.style.display = "none";
-    // Show the user icon
-    userIcon.style.display = "inline";
-    // Set the user's name as the title attribute of the user icon for a tooltip effect
-    userIcon.title = `Logged in as ${userName}`;
-  } else {
-    // Show the login icon
-    loginIcon.style.display = "inline";
-    // Hide the user icon
-    userIcon.style.display = "none";
-  }
-});
+    function closeBioEditor() {
+      document.getElementById("bioEditor").style.display = "none";
+    }
 
+    function updateBio() {
+      const newBio = document.querySelector("#bioEditor textarea").value;
+      if (newBio.trim() !== "") {
+        document.getElementById("user-bio").textContent = newBio;
+        closeBioEditor();
+      } else {
+        alert("Please enter a valid bio.");
+      }
+    }
+
+    function toggleRoleDropdown() {
+      document.getElementById("roleDropdown").classList.toggle("show");
+    }
+
+    function switchRole(role) {
+      document.getElementById("selectedRoleLabel").textContent = "Selected Role: " + role;
+      toggleRoleDropdown();
+
+      // Perform logic to update the user's role on the server
+      alert(`Role switched to ${role}`);
+
+      // Show or hide the relevant artwork collections based on the selected role
+      const artworkCollectionsArtist = document.getElementById("artworkCollectionsArtist");
+      const artworkCollectionsPhotographer = document.getElementById("artworkCollectionsPhotographer");
+      if (role === "Switch to Artist") {
+        artworkCollectionsArtist.style.display = "block";
+        artworkCollectionsPhotographer.style.display = "none";
+      } else if (role === "Switch to Photographer") {
+        artworkCollectionsArtist.style.display = "none";
+        artworkCollectionsPhotographer.style.display = "block";
+      } else {
+        artworkCollectionsArtist.style.display = "none";
+        artworkCollectionsPhotographer.style.display = "none";
+      }
+    }
   </script>
 </body>
+<footer>
+  <p>&copy; 2023 Art & Photo Gallery. All rights reserved.</p>
+</footer>
 </html>
