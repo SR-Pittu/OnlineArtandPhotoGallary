@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Register as a Creator</title>
-  <link rel="stylesheet"href="/static/registerstyle.css"> 
+  <link rel="stylesheet" href="/static/registerstyle.css">
 </head>
+
 <body>
   <div class="container">
-    <form id="registration-form" method="post" >
+    <form id="registration-form" method="post">
       <label for="email"><b>Email</b></label><br>
       <input type="text" placeholder="Enter Email" name="email" id="email" required><br><br>
 
@@ -14,22 +16,39 @@
       <input type="password" placeholder="Enter Password" name="password" id="password" required><br><br>
 
       <label for="password-reenter"><b>Re-Enter Password</b></label><br>
-      <input type="password" placeholder="Re-Enter Password" name="password-reenter" id="password-reenter" required><br><br>
-
+      <input type="password" placeholder="Re-Enter Password" name="password-reenter" id="password-reenter"
+        required><br><br>
+      <div class="checkbox-container">
+        <input type="checkbox" class="checkbox" id="showPassword" onclick="myFunction()">
+        <label class="checkbox-label" for="showPassword">Show Password</label>
+      </div>
       <button type="submit" class="registerbtn">Register</button>
-      <br> 
-    </form>
+      <br>
       <!-- Corrected the ID for the error message element -->
       <div id="error_message">{{ error_message }}</div>
 
       <!-- Success message (hidden by default) -->
-      <div id="success_message">
+      <div id="success_message" class="success_message">
         <a href="/login">{{ success_message }}</a>
       </div>
+    </form>
+
 
   </div>
+  
+  <script>
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+  </script>
 </body>
-  <footer>
-    <p>&copy; 2023 Art & Photo Gallery. All rights reserved.</p>
-  </footer>
+<footer>
+  <p>&copy; 2023 Art & Photo Gallery. All rights reserved.</p>
+</footer>
+
 </html>

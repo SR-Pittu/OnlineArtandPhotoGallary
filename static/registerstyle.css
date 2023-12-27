@@ -2,16 +2,21 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-image:  url('register.png');
+  background-color: #f4f4f4;
+  background-size: cover;
+  background-repeat:repeat;
+  background-position: center;
 }
 
 /* Container Styles */
 .container {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 30px 20px 10px 100px;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color:rgba(124, 97, 97, 0.5)
 }
 
 /* Form Styles */
@@ -32,6 +37,18 @@ input {
   border-radius: 5px;
 }
 
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.checkbox-label {
+  margin-left: 5px;
+  font-size: 14px;
+  color: black;
+}
+
 button {
   padding: 10px;
   background-color: #333;
@@ -41,14 +58,19 @@ button {
   cursor: pointer;
 }
 
+button:hover{
+  background-color: black;
+}
+
 /* Error Message Styles */
-.error-message {
+.error_message {
   color: red;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 /* Success Message Styles */
-#success-message {
+.success_message {
   color: green;
   margin-top: 20px;
   text-decoration: none;
@@ -56,8 +78,8 @@ button {
 }
 
 footer {
-  background-color: #333;
   color: #fff;
   text-align: center;
   padding: 20px;
+  background-color:rgba(124, 97, 97, 0.5)
 }
