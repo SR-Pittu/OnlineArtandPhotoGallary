@@ -56,16 +56,6 @@ button:hover {
     background-color: lightseagreen;
 }
 
-textarea {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-    resize: none;
-    min-height: 200px;
-    border-radius: 5px;
-}
 
 /* Add a style to hide the bio editor and artwork collections by default */
 .chat-popup,
@@ -76,26 +66,6 @@ textarea {
 
 .profile-content {
     padding: 20px;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.profile-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.profile-header h1 {
-    margin: 10px 0;
 }
 
 .collection {
