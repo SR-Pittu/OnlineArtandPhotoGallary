@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/login.css">
+  <title>Login</title>
 </head>
+
 <body>
   <div class="container">
     <form id="login-form" method="post">
       <h2>Login</h2>
-      <label for="email"><b>Email</b></label>
+      <label for="email">Email</label>
       <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" id="password" required><br><br>
-      <input type="checkbox" onclick="myFunction()">Show Password
+      <label for="password">Password</label>
+      <input type="password" placeholder="Enter Password" name="password" id="password" required>
 
-      <button type="submit" class="login-btn">Login</button>
+      <div class="checkbox-container">
+        <input type="checkbox" class="checkbox" id="showPassword" onclick="myFunction()">
+        <label class="checkbox-label" for="showPassword">Show Password</label>
+      </div>
 
-      <div id="error-message" class="error-message">{{ error }}</div>
+      <button type="submit" class="login-btn">Login</button><br><br>
+
+      <div id="error-message" class="error-message"><b>{{ error }}</b></div>
     </form>
   </div>
   <script>
@@ -29,7 +37,7 @@
         x.type = "password";
       }
     }
-    </script>
+  </script>
 </body>
 <footer>
   <p>&copy; 2023 Art & Photo Gallery. All rights reserved.</p>

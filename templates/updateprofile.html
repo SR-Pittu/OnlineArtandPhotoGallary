@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/updateprofile.css">
+  <script src="/static/Scripts/update.js"></script>
+  <title>Update Profile - Art Gallery</title>
+</head>
+<body>
+  <div class="profile-container">
+    <h2>Update Profile</h2>
+    <form class= "main" method="post">
+      <label for="username"><b>Username:</b></label>
+      <input type="text" id="username" name="username" placeholder="Set an Username" value="{{ username }}" required>
+      <p id="user-bio"><b>{{ bio }}</b></p><br>
+      <button onclick="openBioEditor()">Edit Bio</button>
+      <!-- Chat-style popup for editing bio -->
+      <div class="chat-popup" id="bioEditor">
+        <form class="form-container">
+          <label for="bio"><b>New Bio:</b></label><br>
+          <textarea placeholder="Type new bio..." name="bio" required></textarea>
+          <button type="button" class="btn" onclick="updateBio()">Save</button>
+          <button type="button" class="btn cancel" onclick="closeBioEditor()">Cancel</button>
+        </form  class="form-container">
+      </div>
+      <label for="email"><b>Email:</b></label>   
+      <input type="email" id="email" name="email" value="{{ user['email'] }}" required>
+
+      <label><b>Register as</b></label>
+      <div>
+        <input type="checkbox" id="artistCheckbox" name="artistCheckbox" value="Artist">
+        <label for="artistCheckbox">Artist</label>
+      </div>
+      <div>
+        <input type="checkbox" id="photographerCheckbox" name="photographerCheckbox" value="Photographer">
+        <label for="photographerCheckbox">Photographer</label>
+      </div> 
+      <button type="submit" class="submit"><b>Submit</b></button>
+    </form>
+    <br><br><br>
+   </div>
+</body>
+<br>
+<footer>
+  <p>&copy; 2023 Art & Photo Gallery. All rights are reserved.</p>
+</footer>
+</html>

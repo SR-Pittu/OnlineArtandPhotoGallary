@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/profile.css">
+  <script src="/static/Scripts/profile.js"></script>
 
   <title>User Profile - Art Gallery</title>
 </head>
@@ -13,20 +14,9 @@
 <body>
   <div class="profile-container">
     <div class="profile-header">
-      <img src="image_avatar.png" alt="User Profile Picture" class="profile-picture">
-      <h1 id="user-name">User's Name</h1>
-      <p id="user-bio">User Bio or Description</p>
-      <p>Edit Bio</p>
-      <button onclick="openBioEditor()">Edit Bio</button>
-      <!-- Chat-style popup for editing bio -->
-      <div class="chat-popup" id="bioEditor">
-        <form action="/update_bio" class="form-container">
-          <label for="bio"><b>New Bio:</b></label>
-          <textarea placeholder="Type new bio..." name="bio" required></textarea>
-          <button type="button" class="btn" onclick="updateBio()">Save</button>
-          <button type="button" class="btn cancel" onclick="closeBioEditor()">Cancel</button>
-        </form>
-      </div>
+      <img src="/static/images/image_avatar.png" alt="User Profile Picture" class="profile-picture">
+      <p id="user-name"><b>{{ username }}</b></p>
+      <p id="user-bio"><b>{{ bio }}</b></p>
       <div id="user-options">
         <!-- Split button for switching roles -->
         <div class="split-button" onclick="toggleRoleDropdown()">
@@ -60,51 +50,6 @@
       </div>
     </div>
   </div>
-  <script>
-    function openBioEditor() {
-      document.getElementById("bioEditor").style.display = "block";
-    }
-
-    function closeBioEditor() {
-      document.getElementById("bioEditor").style.display = "none";
-    }
-
-    function updateBio() {
-      const newBio = document.querySelector("#bioEditor textarea").value;
-      if (newBio.trim() !== "") {
-        document.getElementById("user-bio").textContent = newBio;
-        closeBioEditor();
-      } else {
-        alert("Please enter a valid bio.");
-      }
-    }
-
-    function toggleRoleDropdown() {
-      document.getElementById("roleDropdown").classList.toggle("show");
-    }
-
-    function switchRole(role) {
-      document.getElementById("selectedRoleLabel").textContent = "Selected Role: " + role;
-      toggleRoleDropdown();
-
-      // Perform logic to update the user's role on the server
-      alert(`Role switched to ${role}`);
-
-      // Show or hide the relevant artwork collections based on the selected role
-      const artworkCollectionsArtist = document.getElementById("artworkCollectionsArtist");
-      const artworkCollectionsPhotographer = document.getElementById("artworkCollectionsPhotographer");
-      if (role === "Switch to Artist") {
-        artworkCollectionsArtist.style.display = "block";
-        artworkCollectionsPhotographer.style.display = "none";
-      } else if (role === "Switch to Photographer") {
-        artworkCollectionsArtist.style.display = "none";
-        artworkCollectionsPhotographer.style.display = "block";
-      } else {
-        artworkCollectionsArtist.style.display = "none";
-        artworkCollectionsPhotographer.style.display = "none";
-      }
-    }
-  </script>
 </body>
 <footer>
   <p>&copy; 2023 Art & Photo Gallery. All rights reserved.</p>

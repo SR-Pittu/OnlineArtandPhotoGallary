@@ -1,5 +1,12 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image:  url('login.png');
+    background-color: #f4f4f4;
+    background-size: cover;
+    background-repeat:repeat;
+    background-position: center;
 }
 
 /* Container Styles */
@@ -9,7 +16,9 @@ body {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #fff;
+    background: transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Form Styles */
@@ -21,11 +30,13 @@ form {
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #333;
 }
 
 label {
     font-weight: bold;
     margin-bottom: 5px;
+    color: #333;
 }
 
 input {
@@ -33,6 +44,19 @@ input {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 14px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.checkbox-label {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #333;
 }
 
 button.login-btn {
@@ -42,17 +66,26 @@ button.login-btn {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.login-btn:hover {
+    background-color: #555;
 }
 
 /* Error Message Styles */
 .error-message {
     color: red;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 footer {
-    background-color: #333;
+    background-color:rgba(124, 97, 97, 0.5);
     color: #fff;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

@@ -1,3 +1,4 @@
+from collections import UserString
 from functools import wraps
 import pymongo
 from cryptography.fernet import Fernet
@@ -11,11 +12,12 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient['MyArtGalleryDB'] 
 print(myclient.list_database_names())
 mycol = mydb['ArtCollection'] 
+myart = mydb['ArtistCollection']
+myPhoto = mydb['PhotoCollection']
 print(mydb.list_collection_names())
 mycol.create_index("email", unique=True)
 # x = mycol.insert_one(mydict)
-# print(x.inserted_id)
-
+# print(x.inserted_id)\
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
@@ -89,12 +91,12 @@ def register():
         else:
             try:
                 # Insert the document into the collection
-                mycol.insert_one({'email': username, 'password': password})
+                mycol.insert_one({'username': None,'email': username, 'password': password, 'Bio':None})
                 print("Document inserted successfully!")
                 success_message="Registration successful! /n Please proceed to the login page"
                 return render_template('register.html', success_message=success_message)
             except DuplicateKeyError as e:
-                error_message="email already exists"
+                error_message="Email already exists"
                 print("Error: The 'email' field must be unique.")
                 return render_template('register.html',error_message=error_message)
             # mycol.insert_one({'email': username, 'password': password})
@@ -112,6 +114,7 @@ def login():
         print(user['password'])
         if user['email']==username and user['password'] == password:
             # Successful login
+            session['user_id'] = username
             print("valid username and password")
             return redirect(url_for('homeloggedin'))
         else:
@@ -132,8 +135,60 @@ def logout():
 
 @app.route('/profile',methods=['GET', 'POST'])
 def profile():
-    # Clear the session and log the user out
+    if request.method == 'GET': 
+        user_id = session.get('user_id')
+        print(user_id)
+        user = mycol.find_one({'email': user_id})
+        username = user['username']
+        bio = user['Bio']
+        if username and bio:
+            return render_template('profile.html',username=username,bio=bio)
+        else:
+            a = user_id.find('@')
+            bio = "Hey!"
+            if a>0:
+                user1 = user_id[:a]
+                print(user1)
+            return render_template('profile.html',username=user1,bio=bio)
+    if request.method == 'POST': 
+        b = request.form['']
+        return render_template('profile.html')
     return render_template('profile.html')
+
+@app.route('/updateprofile', methods=['GET', 'POST'])
+def updateprofile():
+    if request.method == 'GET': 
+        user_id = session.get('user_id')
+        print(user_id)
+        user = mycol.find_one({'email': user_id})
+        username = user['username']
+        bio = user['Bio']
+        if username and bio:
+            print("Success")
+        else:
+            a = user_id.find('@')
+            bio = "Hey!"
+            if a>0:
+                username = user_id[:a]
+                print(username)
+        if user_id:
+            user = mycol.find_one({'email': user_id}) # Fetch user data from your data source
+            return render_template('updateprofile.html', user=user,username=username,bio=bio)
+    if request.method == 'POST':
+        print("Yesssss")
+        username = request.form['username']
+        mail = request.form['email']
+        account = request.form['account']
+        password = mycol.find_one({'email': mail})
+        if(account=='Artist'):
+            # print(mycol.delete_one({'username':mail}))
+            myart.insert_one({'username': username, 'email': mail,'password':password['password']})
+            print('success')
+        if(account=='Photographer'):
+            myPhoto.insert_one({'username': username, 'email': mail,'password':password['password']})
+            print('success')
+        return render_template('profile.html', user=user)
+    return render_template('updateprofile.html')
 
 if __name__ == '__main__':
     app.debug =  True
