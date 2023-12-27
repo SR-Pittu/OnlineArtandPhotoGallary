@@ -65,8 +65,10 @@ def is_valid_password(password):
     return True
 
 @app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     error_message = None  # Initialize the error message variable
+    success_message = None # Initialize the success message variable
     success_message = None # Initialize the success message variable
     if request.method == 'POST':
         username = request.form['email']
